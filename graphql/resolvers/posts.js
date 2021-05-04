@@ -1,4 +1,5 @@
 const { AuthenticationError, UserInputError } = require('apollo-server');
+const { argsToArgsConfig } = require('graphql/type/definition');
 
 const Post = require('../../models/Post')
 const checkAuth = require('../../util/check-auth');
@@ -30,7 +31,10 @@ module.exports = {
         async createPost(_, { body }, context){
             // verify user token first before allowing them to create a post. Only do this for protected routes?
             const user = checkAuth(context);
-            console.log(user);
+
+            if(args.body.trim() === ''){
+                throw new Error('Post body must not be empty');
+            }
 
             const newPost = new Post({
                 body,
