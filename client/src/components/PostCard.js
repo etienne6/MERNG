@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Icon, Label, Image } from "semantic-ui-react";
+import { Card, Icon, Label, Image, Button } from "semantic-ui-react";
 import moment from "moment";
 import { Link } from "react-router-dom";
 
@@ -13,6 +13,14 @@ function PostCard(props) {
     commentCount,
     likes,
   } = props.post;
+
+  function likePost() {
+    console.log("hello");
+  }
+
+  function commentOnPost() {
+    console.log("comment");
+  }
 
   return (
     <Card fluid style={{ marginBottom: "20px" }}>
@@ -29,7 +37,22 @@ function PostCard(props) {
         <Card.Description>{body}</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <p>buttons here</p>
+        <Button as="div" labelPosition="right" onClick={likePost}>
+          <Button color="teal" basic>
+            <Icon name="heart" />
+          </Button>
+          <Label as="a" basic color="teal" pointing="left">
+            {likeCount}
+          </Label>
+        </Button>
+        <Button as="div" labelPosition="right" onClick={commentOnPost}>
+          <Button color="blue" basic>
+            <Icon name="comments" />
+          </Button>
+          <Label as="a" basic color="blue" pointing="left">
+            {commentCount}
+          </Label>
+        </Button>
       </Card.Content>
     </Card>
   );
